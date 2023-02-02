@@ -1,16 +1,17 @@
 env:
 # ENCRYPTED
-  RCLONECONFIG_DRIVE: "ENCRYPTED[9862642b9ac317b97a2ac09417607a1bfacee633f861640ce84318f71d2bd6c5c3fc783b9831327888e7dfd52d8990ad]"
-  TG_TOKEN: "ENCRYPTED[9d701e0a6890996c088a82037cf199790eb05794261014e29104b9b494743fdf47a495f488ba4a3f836fa75c6786d96f]"
-  TG_CHAT_ID: "ENCRYPTED[277c6ba578c74658fe51e8092ae26e94564feb0400f3d79cc0bc6492a0204eb860b1b1e04650ab9bf0e91d66c956d88f]"
-  EMAIL: "ENCRYPTED[c22f821d2c81ea055615c34f29f77dfa023ba8a809702138ea2ae3dff093c3de50c7772d5fec94e3e55f82adf0e175a4]"
+  RCLONECONFIG_DRIVE: "ENCRYPTED[!364a5e503b6414e4ac72b4ffe170fa024050c195503bef187c65d2f528407e3003ef7332449ce8ea809f1cc5456bb44f!]"
+  TG_TOKEN: "ENCRYPTED[!85a8b0e0604e1e0d4f8898e7b7ec5547c1e4916a1f160b529f71a1a57b382e075a20c9fabcf2382cd6f5aff783efd7ca!]"
+  TG_CHAT_ID: "ENCRYPTED[!d135f1c4785dded7963d9c0de8c666f14ce3d1915c94b32c606998eda214681ee357f020f1c79e636532c345919ef370!]"
+  EMAIL: "ENCRYPTED[!db3056209b367678c4422cd0528086498eec398c2781092b675d6da5d497bf8b84d26deec2fe77805767a427de115e1b!]"
+  UNAME: "ENCRYPTED[!c7b6b22b94dcd039fe0df486435ca2c27c96caf5942c19c0aafe9c14cf7dac10b625ede3dde05d33cf1edfcce89db7e8!]"
 
 # FLAG
   WORKDIR: "/tmp"
   CIRRUS_CLONE_DEPTH: "1"
 
 task:
-  name: "Evolution-X Build"
+  name: "LineageOS Build"
   stateful: true
   timeout_in: 120m
   container:
@@ -22,7 +23,7 @@ task:
      - ./script/load_ccache.sh
 
   Repo-pribadi_script:
-     - git config --global user.name "parikk"
+     - git config --global user.name "$UNAME"
      - git config --global user.email "$EMAIL"
 
   Sinkronasi-rom_script:

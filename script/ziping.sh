@@ -34,8 +34,7 @@ p404=$(ls out/target/product/$device/?.*zip || true)
 cipher=$(ls out/target/product/$device/CipherOS-*-OTA-*.zip || true)
 rm -rf $engzip $otazip $awaken $octavi $p404 $cipher
 file_name=$(basename out/target/product/$device/*.zip)
-DL_LINK=https://gdrive.parikk.workers.dev/$name_rom/$device/$file_name
-rclone copy out/target/product/$(grep unch $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1)/*.zip drive:$(grep init $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d / -f 4)/$(grep unch $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1) -P
+rclone copy $file_name drive:$(grep init $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d / -f 4)/$(grep lunch $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1) -P
 cd $WORKDIR/rom/$name_rom/out/target/product/$device
 echo -e \
 "
@@ -47,7 +46,6 @@ echo -e \
 <b>📱 Device :- "${device}"</b>
 <b>📂 Size :- "$(ls -lh *zip | cut -d ' ' -f5)"</b>
 <b>🖥 Branch Build :- "${branch_name}"</b>
-<b>📥 Download Link :-</b> <a href=\"${DL_LINK}\">Here</a>
 <b>📅 Date :- "$(date +%d\ %B\ %Y)"</b>
 <b>🕔 Time Zone :- "$(date +%T)"</b>
 <b>📕 MD5 :-</b> <code>"$(md5sum *zip | cut -d' ' -f1)"</code>
@@ -93,15 +91,15 @@ if [[ $a == *'#### build completed successfully'* ]]
   echo
   upload_rom
   echo ━━━━━━━━━ஜ۩۞۩ஜ━━━━━━━━
-  msg Upload ccache..
-  echo ━━━━━━━━━ஜ۩۞۩ஜ━━━━━━━━
-  upload_ccache
+  # msg Upload ccache..
+  # echo ━━━━━━━━━ஜ۩۞۩ஜ━━━━━━━━
+  # upload_ccache
 else
   echo ━━━━━━━━━ஜ۩۞۩ஜ━━━━━━━━
-  msg ❌ Build not completed, Upload ccache only ❌
-  msg Upload ccache..
-  echo ━━━━━━━━━ஜ۩۞۩ஜ━━━━━━━━
-  upload_ccache
+  msg ❌ Build not completed ❌
+  # msg Upload ccache..
+  # echo ━━━━━━━━━ஜ۩۞۩ஜ━━━━━━━━
+  # upload_ccache
 fi
 }
 

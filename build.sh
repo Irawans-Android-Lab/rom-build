@@ -1,25 +1,22 @@
 # sync rom
-repo init --depth=1 --no-repo-verify -u https://github.com/Evolution-X/manifest.git -b tiramisu -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b lineage-20.0 -g default,-mips,-darwin,-notdefault
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j16
-git clone --depth=1 https://github.com/parikk/device_xiaomi_lmi.git -b 13-evox device/xiaomi/lmi
-git clone --depth=1 https://github.com/parikk/vendor_xiaomi_lmi.git -b 13-evox vendor/xiaomi/lmi
-git clone --depth=1 https://github.com/ProjectElixir-Devices/kernel_xiaomi_lmi.git -b zen_plus-13 kernel/xiaomi/lmi
-git clone --depth=1 https://gitlab.com/Roxor-007/WeebX_clang16.git -b main prebuilts/clang/host/linux-x86/clang-weebx
+git clone https://github.com/Irawans-Android-Lab/device_realme_RMX1801.git -b lineage-20.0 device/realme/RMX1801 --depth=1
+git clone https://github.com/Irawans-Android-Lab/kernel_realme_sdm660.git kernel/realme/sdm660 --depth=1
+git clone https://github.com/Irawans-Android-Lab/vendor_realme.git -b lineage-20.0 vendor/realme --depth=1
+git clone https://scm.osdn.net/gitroot/gengkapak/clang-GengKapak.git prebuilts/clang/host/linux-x86/gengkapak-clang --depth=1
 
 # build rom
 source $CIRRUS_WORKING_DIR/script/config
 timeStart
 
 . build/envsetup.sh
-export BUILD_USERNAME=parikk
-export BUILD_HOSTNAME=parikk-build
-export EVO_BUILD_TYPE=OFFICIAL
-lunch evolution_lmi-user
+lunch lineage_RMX1801-userdebug
 mkfifo reading
 tee "${BUILDLOG}" < reading &
 build_message "Building Started"
 progress &
-mka evolution -j16  > reading & sleep 95m
+brunch RMX1801 > reading & sleep 95m
 
 retVal=$?
 timeEnd
